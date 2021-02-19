@@ -3,3 +3,4 @@ obj/
 pub/
 debug/
 .vs/
+*.user
