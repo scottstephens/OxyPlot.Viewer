@@ -22,6 +22,7 @@ namespace OxyPlot.Viewer.WinForms
             InitializeComponent();
             this.Index = index;
             this.Id = Guid.NewGuid();
+            this.DockPanel.Theme = new VS2015LightTheme();
             this.DockPanel.Theme.Extender.DockPaneStripFactory = new MovableContentDockPaneStripFactory(this.DockPanel.Theme.Extender.DockPaneStripFactory);
         }
 

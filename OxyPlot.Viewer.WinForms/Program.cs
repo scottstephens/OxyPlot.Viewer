@@ -14,7 +14,7 @@ namespace OxyPlot.Viewer.WinForms
         [STAThread]
         static void Main()
         {
-#if NETCORE
+#if NETCOREAPP
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
 #endif
             Application.EnableVisualStyles();

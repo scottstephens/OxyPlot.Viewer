@@ -1,0 +1,2 @@
+﻿SourcePaths.Add(@"C:\Users\scott\development\OxyPlot.Viewer\OxyPlot.Viewer.Examples.WinForms");
+ReferencePaths.Add(@"C:\Users\scott\development\OxyPlot.Viewer\OxyPlot.Viewer.Examples.WinForms\bin\Debug\net5.0-windows")

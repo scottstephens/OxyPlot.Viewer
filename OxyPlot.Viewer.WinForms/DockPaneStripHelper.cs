@@ -29,6 +29,17 @@ namespace OxyPlot.Viewer.WinForms
             GetTabContent = InitializeGetTabContent();
         }
 
+        public static IDockContent GetContent(DockPaneStripBase dock_pane_strip, Point client_point)
+        {
+            var tabs = GetTabs(dock_pane_strip);
+            var index = HitTest(dock_pane_strip, client_point);
+            if (index < 0)
+                return null;
+            var tab = GetTab(tabs, index);
+            var content = GetTabContent(tab);
+            return content;
+        }
+
         static HitTestDel InitializeHitTest()
         {
             var type = typeof(DockPaneStripBase);
@@ -56,10 +67,7 @@ namespace OxyPlot.Viewer.WinForms
 
             var method_info = type.GetMethod("get_Item", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[] { typeof(int) }, null);
 
-            //return (GetTabDel)Delegate.CreateDelegate(typeof(GetTabDel), method_info);
             return MagicMethod1(type, method_info);
-
-            // TTarget: TabCollection (object), TParam: int, TReturn: Tab (object)
         }
 
         static Func<object,IDockContent> InitializeGetTabContent()
@@ -75,9 +83,8 @@ namespace OxyPlot.Viewer.WinForms
             return MagicMethod2<IDockContent>(type, getter_info);
         }
 
-        // Initialize GetContent
-        // TTarget: Tab (object), TParam: none, TReturn: IDockContent
-
+        // the magic methods here were inspired by 
+        // https://codeblog.jonskeet.uk/2008/08/09/making-reflection-fly-and-exploring-delegates/
         static Func<object, int, object> MagicMethod1(Type target_type, MethodInfo method)
         {
             // First fetch the generic form
@@ -136,16 +143,7 @@ namespace OxyPlot.Viewer.WinForms
             return ret;
         }
 
-        public static IDockContent GetContent(DockPaneStripBase dock_pane_strip, Point client_point)
-        {
-            var tabs = GetTabs(dock_pane_strip);
-            var index = HitTest(dock_pane_strip, client_point);
-            if (index < 0)
-                return null;
-            var tab = GetTab(tabs, index);
-            var content = GetTabContent(tab);
-            return content;
-        }
+        
             
     }
 }
